@@ -6,7 +6,11 @@ from pathlib import Path
 
 
 def validate(args: list) -> str | None:
-    """Validate arguments."""
+    """
+    Function for validating input arguments.
+    :param args: List of arguments passed to the program.
+    :return: None if valid, else error message.
+    """
     file_path = args[0]
     file = Path(file_path)
     validation_dict = {
@@ -27,7 +31,12 @@ def validate(args: list) -> str | None:
 
 
 def parse_log_line(line: str, count: int) -> dict | None:
-    """Parse a log line and return a dictionary"""
+    """
+    Parse a log line and return a dictionary
+    :param line: Log line to be parsed.
+    :param count: Number of log line.
+    :return: Dictionary with parsed log line.
+    """
     pattern = re.compile(
         r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} (INFO|DEBUG|ERROR|WARNING) .+",
         re.IGNORECASE
@@ -47,8 +56,12 @@ def parse_log_line(line: str, count: int) -> dict | None:
     }
 
 
-def load_logs(file_path: str) -> list | None:
-    """Load logs from a file."""
+def load_logs(file_path: str) -> list:
+    """
+    Load logs from a file.
+    :param file_path: Path to the logs file.
+    :return: List of logs.
+    """
     with open(file_path, "r", encoding="UTF-8") as file:
         logs = list(
             map(
@@ -63,7 +76,12 @@ def load_logs(file_path: str) -> list | None:
 
 
 def filter_logs_by_level(logs: list, level: str) -> None:
-    """Filter logs by level."""
+    """
+    Filter logs by level and print them.
+    :param logs: List of logs.
+    :param level: Log level.
+    :return: None
+    """
     filtered_logs = []
     for log in logs:
         if log["level"] == level.lower():
@@ -76,12 +94,20 @@ def filter_logs_by_level(logs: list, level: str) -> None:
 
 
 def count_logs_by_level(logs: list) -> dict:
-    """Count logs by level."""
+    """
+    Count logs by level.
+    :param logs: List of logs.
+    :return: Dictionary with count of logs.
+    """
     return Counter([log["level"] for log in logs])
 
 
 def display_log_counts(counts: dict) -> None:
-    """Display log counts in table."""
+    """
+    Display log counts in table.
+    :param counts: Dictionary with log counts.
+    :return : None
+    """
     print(
         f"""
         Log level        | Quantity
